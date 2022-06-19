@@ -1,0 +1,95 @@
+% Check if the Left element is to the left of the Right element in the list. 
+
+on_left(Left,Right,[Left,Right|_]). 
+
+on_left(Left,Right,[_|Tail]) :- on_left(Left,Right,Tail). 
+
+ 
+
+% Check if elements X and Y are next to each other in the Houses list. 
+
+next_to(X,Y,Houses) :- on_left(X,Y,Houses). 
+
+next_to(X,Y,Houses) :- on_left(Y,X,Houses).	 
+
+ 
+
+% Solution to the puzzle. 
+
+solution(Wanted) :- 
+
+% 5 people of different nationalities live in 5 houses of 5 different colours. 
+
+% They all smoke 5 different brands of cigarettes and drink 5 different drinks. 
+
+% They keep 5 different kinds of animals. 
+
+% A list representing a single house: 
+
+% [number,colour,inhabitant,cigarettes,drink,animals]. 
+
+Houses = [[1,_,_,_,_,_],[2,_,_,_,_,_],[3,_,_,_,_,_],[4,_,_,_,_,_],[5,_,_,_,_,_]], 
+
+% Norway lives in the first house. 
+
+member([1,_,norwegian,_,_,_],Houses), 
+
+% Englishman lives in the red house. 
+
+member([_,red,englishman,_,_,_],Houses), 
+
+% The green house is directly to the left of the white house. 
+
+on_left([_,green,_,_,_,_],[_,white,_,_,_,_],Houses), 
+
+% The Dane is drinking tea. 
+
+member([_,_,dane,_,tea,_],Houses), 
+
+% Rothmans smoker lives next door to a cat breeder. 
+
+next_to([_,_,_,rothmans,_,_],[_,_,_,_,_,cats],Houses), 
+
+% The resident of the yellow house smokes Dunhills. 
+
+member([_,yellow,_,dunhill,_,_],Houses), 
+
+% A German smokes Marlboro. 
+
+member([_,_,german,marlboro,_,_],Houses), 
+
+% The resident of the middle house drinks milk. 
+
+member([3,_,_,_,milk,_],Houses), 
+
+% The Rothmans smoker has a neighbour who drinks water. 
+
+next_to([_,_,_,rothmans,_,_],[_,_,_,_,water,_],Houses), 
+
+% The Pall Malli smoker breeds birds. 
+
+member([_,_,_,pall_mall,_,birds],Houses), 
+
+% Swede breeds dogs. 
+
+member([_,_,sweden,_,_,dogs],Houses), 
+
+% Norwegian lives next to a blue house. 
+
+next_to([_,_,norwegian,_,_,_],[_,blue,_,_,_,_],Houses), 
+
+% A horse breeder lives next to a yellow house. 
+
+next_to([_,_,_,_,_,horses],[_,yellow,_,_,_,_],Houses), 
+
+% Philip Morris smoker drinks beer. 
+
+member([_,_,_,phillip_morris,beer,_],Houses), 
+
+% The green house is drinking coffee. 
+
+member([_,green,_,_,coffee,_],Houses), 
+
+% Looking for an inhabitant of a house that grows fish. 
+
+member([_,_,Wanted,_,_,fish],Houses). 
